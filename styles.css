@@ -5,6 +5,26 @@ body {
   background-color: #f9f9f9;
 }
 
+header {
+  background: linear-gradient(90deg, #ff7eb3, #ff758c, #ff9e80);
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+header p {
+  margin: 10px 0 0;
+  font-size: 16px;
+
+  color: #e3eaff;
+}
+
 .container {
   max-width: 600px;
   margin: 50px auto;
@@ -52,7 +72,7 @@ button {
   padding: 10px;
   margin-top: 10px;
   font-size: 16px;
-  background-color: #007bff;
+  background: linear-gradient(90deg, #ff9a8b, #ff6a88, #ff99ac);
   color: white;
   border: none;
   border-radius: 4px;
@@ -60,7 +80,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background: linear-gradient(90deg, #ff7eb3, #ff3b71, #ff6a88);
 }
 
 .correct {
