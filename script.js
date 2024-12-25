@@ -1,61 +1,104 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('quiz-form');
-  const shuffleButton = document.getElementById('shuffle-options');
-  const optionsContainer = document.getElementById('options-container');
+let quizQuestions = [];
+let questionId = 1;
 
-  form.addEventListener('submit', e => {
-    e.preventDefault();
+const form = document.getElementById('quiz-form');
+form.addEventListener('submit', e => {
+  e.preventDefault();
 
-    const question = document.getElementById('question').value;
-    const optionsInputs = document.querySelectorAll('.option-input');
-    const radios = document.querySelectorAll('.correct-radio');
+  const questionText = document.getElementById('question').value;
+  const optionInputs = document.querySelectorAll('.option-input');
+  const correctAnswer = document.querySelector('input[name="correct"]:checked');
 
-    let correctIndex = null;
-    const options = [];
+  if (!questionText || questionText.length > 140 || !correctAnswer) {
+    alert('Please enter a valid question and mark a correct answer!');
+    return;
+  }
 
-    optionsInputs.forEach((input, index) => {
-      const isCorrect = radios[index].checked;
-      options.push({ text: input.value, isCorrect });
-      if (isCorrect) correctIndex = index;
-    });
+  const options = Array.from(optionInputs).map((input, index) => ({
+    text: input.value,
+    isCorrect: correctAnswer.value == index,
+  }));
 
-    if (correctIndex === null) {
-      alert('Please select a correct answer!');
-      return;
-    }
+  const quizQuestion = {
+    id: questionId++,
+    question: questionText,
+    options: options,
+  };
 
-    const quizQuestion = {
-      id: Date.now(),
-      question,
-      options,
-    };
-
-    console.log('Quiz Question Saved:', quizQuestion);
-    alert('Question saved successfully!');
-    form.reset();
-  });
-
-  shuffleButton.addEventListener('click', () => {
-    const optionGroups = Array.from(optionsContainer.children);
-    const shuffled = optionGroups.sort(() => Math.random() - 0.5);
-
-    optionsContainer.innerHTML = '';
-    shuffled.forEach(group => optionsContainer.appendChild(group));
-  });
-
-  optionsContainer.addEventListener('change', () => {
-    const radios = document.querySelectorAll('.correct-radio');
-    radios.forEach((radio, index) => {
-      const optionInput = radio
-        .closest('.option-group')
-        .querySelector('.option-input');
-      if (radio.checked) {
-        optionInput.classList.add('correct');
-        optionInput.classList.remove('incorrect');
-      } else {
-        optionInput.classList.add('incorrect');
-        optionInput.classList.remove('correct');
-      }
-    });
-  });
+  quizQuestions.push(quizQuestion);
+  form.reset();
+  renderQuizQuestions();
 });
+
+function renderQuizQuestions() {
+  const questionsList = document.getElementById('questions-list');
+  questionsList.innerHTML = ''; 
+
+  quizQuestions.forEach(quiz => {
+    const questionElement = document.createElement('div');
+    questionElement.className = 'quiz-item';
+
+    const questionText = document.createElement('h3');
+    questionText.textContent = quiz.question;
+
+    const optionsList = document.createElement('ul');
+    quiz.options.forEach(option => {
+      const optionItem = document.createElement('li');
+      optionItem.textContent = option.text;
+      optionsList.appendChild(optionItem);
+    });
+
+    const revealButton = document.createElement('button');
+    revealButton.textContent = 'Show Correct Answer';
+    revealButton.addEventListener('click', () => {
+      const correctOption = quiz.options.find(opt => opt.isCorrect);
+      alert(`Correct Answer: ${correctOption.text}`);
+    });
+
+    questionElement.appendChild(questionText);
+    questionElement.appendChild(optionsList);
+    questionElement.appendChild(revealButton);
+    questionsList.appendChild(questionElement);
+  });
+}
+
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase();
+  const filteredQuestions = quizQuestions.filter(quiz =>
+    quiz.question.toLowerCase().includes(query),
+  );
+  renderFilteredQuestions(filteredQuestions);
+});
+
+function renderFilteredQuestions(filteredQuestions) {
+  const questionsList = document.getElementById('questions-list');
+  questionsList.innerHTML = ''; 
+
+  filteredQuestions.forEach(quiz => {
+    const questionElement = document.createElement('div');
+    questionElement.className = 'quiz-item';
+
+    const questionText = document.createElement('h3');
+    questionText.textContent = quiz.question;
+
+    const optionsList = document.createElement('ul');
+    quiz.options.forEach(option => {
+      const optionItem = document.createElement('li');
+      optionItem.textContent = option.text;
+      optionsList.appendChild(optionItem);
+    });
+
+    const revealButton = document.createElement('button');
+    revealButton.textContent = 'Show Correct Answer';
+    revealButton.addEventListener('click', () => {
+      const correctOption = quiz.options.find(opt => opt.isCorrect);
+      alert(`Correct Answer: ${correctOption.text}`);
+    });
+
+    questionElement.appendChild(questionText);
+    questionElement.appendChild(optionsList);
+    questionElement.appendChild(revealButton);
+    questionsList.appendChild(questionElement);
+  });
+}
