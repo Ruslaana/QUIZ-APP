@@ -32,7 +32,7 @@ form.addEventListener('submit', e => {
 
 function renderQuizQuestions() {
   const questionsList = document.getElementById('questions-list');
-  questionsList.innerHTML = ''; 
+  questionsList.innerHTML = '';
 
   quizQuestions.forEach(quiz => {
     const questionElement = document.createElement('div');
@@ -42,17 +42,24 @@ function renderQuizQuestions() {
     questionText.textContent = quiz.question;
 
     const optionsList = document.createElement('ul');
-    quiz.options.forEach(option => {
+    quiz.options.forEach((option, index) => {
       const optionItem = document.createElement('li');
       optionItem.textContent = option.text;
+      optionItem.dataset.index = index;
       optionsList.appendChild(optionItem);
     });
 
     const revealButton = document.createElement('button');
     revealButton.textContent = 'Show Correct Answer';
     revealButton.addEventListener('click', () => {
-      const correctOption = quiz.options.find(opt => opt.isCorrect);
-      alert(`Correct Answer: ${correctOption.text}`);
+      quiz.options.forEach((option, index) => {
+        const optionItem = optionsList.children[index];
+        if (option.isCorrect) {
+          optionItem.style.color = 'green';
+        } else {
+          optionItem.style.color = 'red';
+        }
+      });
     });
 
     questionElement.appendChild(questionText);
@@ -73,7 +80,7 @@ searchInput.addEventListener('input', () => {
 
 function renderFilteredQuestions(filteredQuestions) {
   const questionsList = document.getElementById('questions-list');
-  questionsList.innerHTML = ''; 
+  questionsList.innerHTML = '';
 
   filteredQuestions.forEach(quiz => {
     const questionElement = document.createElement('div');
@@ -83,17 +90,24 @@ function renderFilteredQuestions(filteredQuestions) {
     questionText.textContent = quiz.question;
 
     const optionsList = document.createElement('ul');
-    quiz.options.forEach(option => {
+    quiz.options.forEach((option, index) => {
       const optionItem = document.createElement('li');
       optionItem.textContent = option.text;
+      optionItem.dataset.index = index;
       optionsList.appendChild(optionItem);
     });
 
     const revealButton = document.createElement('button');
     revealButton.textContent = 'Show Correct Answer';
     revealButton.addEventListener('click', () => {
-      const correctOption = quiz.options.find(opt => opt.isCorrect);
-      alert(`Correct Answer: ${correctOption.text}`);
+      quiz.options.forEach((option, index) => {
+        const optionItem = optionsList.children[index];
+        if (option.isCorrect) {
+          optionItem.style.color = 'green';
+        } else {
+          optionItem.style.color = 'red';
+        }
+      });
     });
 
     questionElement.appendChild(questionText);
@@ -102,3 +116,13 @@ function renderFilteredQuestions(filteredQuestions) {
     questionsList.appendChild(questionElement);
   });
 }
+
+const shuffleButton = document.getElementById('shuffle-options');
+shuffleButton.addEventListener('click', () => {
+  const optionsContainer = document.getElementById('options-container');
+  for (let i = optionsContainer.children.length; i >= 0; i--) {
+    optionsContainer.appendChild(
+      optionsContainer.children[(Math.random() * i) | 0],
+    );
+  }
+});
