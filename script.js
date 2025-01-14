@@ -14,7 +14,7 @@ form.addEventListener('submit', e => {
     return;
   }
 
-  const options = Array.from(optionInputs).map((input, index) => ({
+  const options = [...optionInputs].map((input, index) => ({
     text: input.value,
     isCorrect: correctAnswer.value == index,
   }));
