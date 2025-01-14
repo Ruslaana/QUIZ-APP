@@ -11,7 +11,8 @@
     <h1>QuizCraft</h1>
     <p>A fun and creative way to craft and play quizzes.</p>
   </header>
-  <div class="container">
+
+  <section class="container">
     <h1>Create a Quiz Question</h1>
     <form id="quiz-form">
       <label for="question">Question (max 140 characters):</label>
@@ -39,18 +40,24 @@
       <button type="button" id="shuffle-options">Shuffle Options</button>
       <button type="submit">Save Question</button>
     </form>
-  </div>
-  <h2 class="section-heading">Quiz Questions</h2>
-  <input type="text" id="search-input" placeholder="Search questions..." />
-  <div id="questions-list"></div>
+  </section>
 
-  <h2>Quiz Game</h2>
-  <form id="players-form">
-    <input type="text" id="player1-name" placeholder="Player 1 Name" required>
-    <input type="text" id="player2-name" placeholder="Player 2 Name" required>
-    <button type="button" id="start-quiz">Start Quiz</button>
-  </form>
-  <div id="players-container" style="display: none;">
+  <section>
+    <h2 class="section-heading">Quiz Questions</h2>
+    <input type="text" id="search-input" placeholder="Search questions..." />
+    <div id="questions-list"></div>
+  </section>
+
+  <section class="container">
+    <h2 class="section-heading">Quiz Game</h2>
+    <form id="players-form">
+      <input type="text" id="player1-name" placeholder="Player 1 Name" required>
+      <input type="text" id="player2-name" placeholder="Player 2 Name" required>
+      <button type="button" id="start-quiz">Start Quiz</button>
+    </form>
+  </section>
+
+  <section id="players-container" style="display: none;">
     <div id="player1">
       <span id="player1-display"></span>
       <input type="number" id="player1-points" value="0" readonly>
@@ -63,7 +70,8 @@
       <button type="button" onclick="updateScore('player2', 'correct')">Correct</button>
       <button type="button" onclick="updateScore('player2', 'wrong')">Wrong</button>
     </div>
-  </div>
+  </section>
+  
   <script src="./script.js"></script>
 </body>
 </html>
