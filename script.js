@@ -14,7 +14,7 @@ form.addEventListener('submit', e => {
     return;
   }
 
-  const options = Array.from(optionInputs).map((input, index) => ({
+  const options = [...optionInputs].map((input, index) => ({
     text: input.value,
     isCorrect: correctAnswer.value == index,
   }));
@@ -126,3 +126,26 @@ shuffleButton.addEventListener('click', () => {
     );
   }
 });
+
+document.getElementById('start-quiz').addEventListener('click', () => {
+  const player1Name = document.getElementById('player1-name').value;
+  const player2Name = document.getElementById('player2-name').value;
+  if (player1Name && player2Name) {
+    document.getElementById('player1-display').textContent = player1Name;
+    document.getElementById('player2-display').textContent = player2Name;
+    document.getElementById('players-container').style.display = 'block';
+  } else {
+    alert('Please enter both player names!');
+  }
+});
+
+function updateScore(player, action) {
+  const playerPoints = document.getElementById(`${player}-points`);
+  let points = parseInt(playerPoints.value);
+  if (action === 'correct') {
+    points += 1;
+  } else if (action === 'wrong') {
+    points -= 1;
+  }
+  playerPoints.value = points;
+}
