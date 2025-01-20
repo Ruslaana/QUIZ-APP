@@ -25,12 +25,19 @@ header p {
 }
 
 .container {
-  max-width: 600px;
+  max-width: 1200px; 
   margin: 50px auto;
   padding: 20px;
   background: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+}
+
+.quize-game {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 40px;
 }
 
 h1 {
@@ -44,7 +51,7 @@ label {
   font-weight: bold;
 }
 
-input[type="text"] {
+input[type='text'] {
   width: calc(100% - 10px);
   padding: 8px;
   margin-bottom: 10px;
@@ -67,9 +74,9 @@ input[type="text"] {
 }
 
 button {
-  display: block;
-  width: 100%;
-  padding: 10px;
+  display: inline-block; 
+  width: auto; 
+  padding: 10px 20px; 
   margin-top: 10px;
   font-size: 16px;
   background: linear-gradient(90deg, #ff9a8b, #ff6a88, #ff99ac);
@@ -128,6 +135,9 @@ button:hover {
   margin-top: 24px;
   padding: 0;
   list-style-type: none;
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 16px; 
 }
 
 .quiz-item {
@@ -198,20 +208,23 @@ button:hover {
   margin-bottom: 10px;
 }
 
-#player1, #player2 {
+#player1,
+#player2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
 }
 
-#player1-display, #player2-display {
+#player1-display,
+#player2-display {
   flex: 1;
   font-weight: bold;
   text-align: left;
 }
 
-#player1-points, #player2-points {
+#player1-points,
+#player2-points {
   width: 50px;
   text-align: center;
   margin: 0 10px;
@@ -220,7 +233,8 @@ button:hover {
   padding: 8px;
 }
 
-#player1 button, #player2 button {
+#player1 button,
+#player2 button {
   flex: 1;
   padding: 8px 10px;
   margin: 0 5px;
@@ -233,7 +247,8 @@ button:hover {
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-#player1 button:hover, #player2 button:hover {
+#player1 button:hover,
+#player2 button:hover {
   background: linear-gradient(90deg, #ff7eb3, #ff3b71, #ff6a88);
   transform: scale(1.05);
 }
@@ -241,3 +256,36 @@ button:hover {
 #players-form {
   text-align: center;
 }
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+#button-container button {
+  margin: 0 10px;
+}
+
+#questions-list {
+  margin-top: 24px;
+  padding: 0;
+  list-style-type: none;
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 16px; 
+}
+.quiz-item {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
