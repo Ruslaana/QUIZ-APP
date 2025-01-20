@@ -12,9 +12,9 @@
     <p>A fun and creative way to craft and play quizzes.</p>
   </header>
 
-  <section class="container">
+  <div class="container">
 
-    <section class="container">
+    <section class="quize-game">
     <h2 class="section-heading">Quiz Game</h2>
     <form id="players-form">
       <input type="text" id="player1-name" placeholder="Player 1 Name" required>
@@ -37,7 +37,7 @@
       <button type="button" onclick="updateScore('player2', 'wrong')">Wrong</button>
     </div>
   </section>
-
+  <div class="quize-game">
     <h1>Create a Quiz Question</h1>
     <form id="quiz-form">
       <label for="question">Question: </label>
@@ -61,17 +61,27 @@
           <input type="radio" name="correct" value="3" class="correct-radio">
         </div>
       </div>
-
-      <button type="button" id="shuffle-options">Shuffle Options</button>
-      <button type="submit">Save Question</button>
+      <div class="button-container">
+        <button type="button" id="shuffle-options">Shuffle Options</button>
+        <button type="submit">Save Question</button>
+      </div>
     </form>
-  </section>
+    </div>
+    
+    <section>
+      <h2 class="section-heading">Quiz Questions</h2>
+      <input type="text" id="search-input" placeholder="Search questions..." />
+      <div id="questions-list"></div>
+    </section>
+    
+    <section>
+      <div class="button-container"> 
+        <button type="button" id="sort-alpha">Sort Alphabetically</button> 
+        <button type="button" id="sort-random">Random Sort</button> </div>
+        <div id="questions-list"></div>
+      </section>
+    </div>
 
-  <section>
-    <h2 class="section-heading">Quiz Questions</h2>
-    <input type="text" id="search-input" placeholder="Search questions..." />
-    <div id="questions-list"></div>
-  </section>
   
   <script src="./script.js"></script>
 </body>
