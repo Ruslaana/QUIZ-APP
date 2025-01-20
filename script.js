@@ -38,7 +38,7 @@ async function fetchQuizQuestions() {
     const data = await response.json();
     if (Array.isArray(data)) {
       quizQuestions = data;
-      renderQuizQuestions(); // Рендеримо питання після завантаження
+      renderQuizQuestions(); 
     } else {
       throw new Error('Invalid data format');
     }
