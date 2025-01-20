@@ -30,6 +30,23 @@ form.addEventListener('submit', e => {
   renderQuizQuestions();
 });
 
+async function fetchQuizQuestions() {
+  try {
+    const response = await fetch(
+      'https://raw.githubusercontent.com/Ruslaana/Ruslaana.github.io/refs/heads/main/test.json',
+    );
+    const data = await response.json();
+    if (Array.isArray(data)) {
+      quizQuestions = data;
+      renderQuizQuestions(); // Рендеримо питання після завантаження
+    } else {
+      throw new Error('Invalid data format');
+    }
+  } catch (error) {
+    console.error('Error fetching quiz questions:', error);
+  }
+}
+
 function renderQuizQuestions() {
   const questionsList = document.getElementById('questions-list');
   questionsList.innerHTML = '';
@@ -44,7 +61,13 @@ function renderQuizQuestions() {
     const optionsList = document.createElement('ul');
     quiz.options.forEach((option, index) => {
       const optionItem = document.createElement('li');
-      optionItem.textContent = option.text;
+      const optionRadio = document.createElement('input');
+      optionRadio.type = 'radio';
+      optionRadio.name = `correct-${quiz.id}`;
+      optionRadio.value = index;
+      optionItem.appendChild(optionRadio);
+
+      optionItem.appendChild(document.createTextNode(option.text));
       optionItem.dataset.index = index;
       optionsList.appendChild(optionItem);
     });
@@ -92,7 +115,13 @@ function renderFilteredQuestions(filteredQuestions) {
     const optionsList = document.createElement('ul');
     quiz.options.forEach((option, index) => {
       const optionItem = document.createElement('li');
-      optionItem.textContent = option.text;
+      const optionRadio = document.createElement('input');
+      optionRadio.type = 'radio';
+      optionRadio.name = `correct-${quiz.id}`;
+      optionRadio.value = index;
+      optionItem.appendChild(optionRadio);
+
+      optionItem.appendChild(document.createTextNode(option.text));
       optionItem.dataset.index = index;
       optionsList.appendChild(optionItem);
     });
@@ -145,8 +174,23 @@ function updateScore(player, action) {
   if (action === 'correct') {
     points += 1;
   } else if (action === 'wrong') {
-    points = Math.max(0, points - 1); 
+    points = Math.max(0, points - 1);
   }
   playerPoints.value = points;
 }
 
+document.getElementById('sort-alpha').addEventListener('click', () => {
+  if (Array.isArray(quizQuestions)) {
+    quizQuestions.sort((a, b) => a.question.localeCompare(b.question));
+    renderQuizQuestions();
+  }
+});
+
+document.getElementById('sort-random').addEventListener('click', () => {
+  if (Array.isArray(quizQuestions)) {
+    quizQuestions.sort(() => Math.random() - 0.5);
+    renderQuizQuestions();
+  }
+});
+
+document.addEventListener('DOMContentLoaded', fetchQuizQuestions);
