@@ -145,7 +145,8 @@ function updateScore(player, action) {
   if (action === 'correct') {
     points += 1;
   } else if (action === 'wrong') {
-    points -= 1;
+    points = Math.max(0, points - 1); 
   }
   playerPoints.value = points;
 }
+
