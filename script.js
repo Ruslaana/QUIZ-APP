@@ -33,7 +33,7 @@ form.addEventListener('submit', e => {
 async function fetchQuizQuestions() {
   try {
     const response = await fetch(
-      'https://raw.githubusercontent.com/Ruslaana/Ruslaana.github.io/refs/heads/main/test.json',
+      'https://raw.githubusercontent.com/Ruslaana/Ruslaana.github.io/refs/heads/main/quizeApp.json',
     );
     const data = await response.json();
     if (Array.isArray(data)) {
