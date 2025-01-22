@@ -13,76 +13,76 @@
   </header>
 
   <div class="container">
-
     <section class="quize-game">
-    <h2 class="section-heading">Quiz Game</h2>
-    <form id="players-form">
-      <input type="text" id="player1-name" placeholder="Player 1" required>
-      <input type="text" id="player2-name" placeholder="Player 2" required>
-      <button type="button" id="start-quiz">Start Quiz</button>
-    </form>
-  </section>
+      <h2 class="section-heading">Quiz Game</h2>
+      <form id="players-form">
+        <input type="text" id="player1-name" placeholder="Player 1" required>
+        <input type="text" id="player2-name" placeholder="Player 2" required>
+        <button type="button" id="start-quiz">Start Quiz</button>
+      </form>
+    </section>
 
-  <section id="players-container" style="display: none;">
-    <div id="player1">
-      <span id="player1-display"></span>
-      <input type="number" id="player1-points" value="0" readonly>
-      <button type="button" onclick="updateScore('player1', 'correct')">Correct</button>
-      <button type="button" onclick="updateScore('player1', 'wrong')">Wrong</button>
-    </div>
-    <div id="player2">
-      <span id="player2-display"></span>
-      <input type="number" id="player2-points" value="0" readonly>
-      <button type="button" onclick="updateScore('player2', 'correct')">Correct</button>
-      <button type="button" onclick="updateScore('player2', 'wrong')">Wrong</button>
-    </div>
-  </section>
-  <div class="quize-game">
-    <h1>Create a Quiz Question</h1>
-    <form id="quiz-form">
-      <label for="question">Question: </label>
-      <input type="text" id="question" name="question" maxlength="140" placeholder="Write your question here (max 140 characters)" required>
+    <section id="players-container" style="display: none;">
+      <div id="player1">
+        <span id="player1-display"></span>
+        <input type="number" id="player1-points" value="0" readonly>
+        <button type="button" onclick="updateScore('player1', 'correct')">Correct</button>
+        <button type="button" onclick="updateScore('player1', 'wrong')">Wrong</button>
+      </div>
+      <div id="player2">
+        <span id="player2-display"></span>
+        <input type="number" id="player2-points" value="0" readonly>
+        <button type="button" onclick="updateScore('player2', 'correct')">Correct</button>
+        <button type="button" onclick="updateScore('player2', 'wrong')">Wrong</button>
+      </div>
+    </section>
 
-      <div id="options-container">
-        <div class="option-group">
-          <input type="text" class="option-input" placeholder="Option 1" required>
-          <input type="radio" name="correct" value="0" class="correct-radio">
+    <div class="quize-game">
+      <h1>Create a Quiz Question</h1>
+      <form id="quiz-form">
+        <label for="question">Question: </label>
+        <input type="text" id="question" name="question" maxlength="140" placeholder="Write your question here (max 140 characters)" required>
+
+        <div id="options-container">
+          <div class="option-group">
+            <input type="text" class="option-input" placeholder="Option 1" required>
+            <input type="radio" name="correct" value="0" class="correct-radio">
+          </div>
+          <div class="option-group">
+            <input type="text" class="option-input" placeholder="Option 2" required>
+            <input type="radio" name="correct" value="1" class="correct-radio">
+          </div>
+          <div class="option-group">
+            <input type="text" class="option-input" placeholder="Option 3" required>
+            <input type="radio" name="correct" value="2" class="correct-radio">
+          </div>
+          <div class="option-group">
+            <input type="text" class="option-input" placeholder="Option 4" required>
+            <input type="radio" name="correct" value="3" class="correct-radio">
+          </div>
         </div>
-        <div class="option-group">
-          <input type="text" class="option-input" placeholder="Option 2" required>
-          <input type="radio" name="correct" value="1" class="correct-radio">
+        <div class="button-container">
+          <button type="button" id="shuffle-options">Shuffle Options</button>
+          <button type="submit">Save Question</button>
         </div>
-        <div class="option-group">
-          <input type="text" class="option-input" placeholder="Option 3" required>
-          <input type="radio" name="correct" value="2" class="correct-radio">
-        </div>
-        <div class="option-group">
-          <input type="text" class="option-input" placeholder="Option 4" required>
-          <input type="radio" name="correct" value="3" class="correct-radio">
-        </div>
-      </div>
-      <div class="button-container">
-        <button type="button" id="shuffle-options">Shuffle Options</button>
-        <button type="submit">Save Question</button>
-      </div>
-    </form>
+      </form>
     </div>
-    
+
     <section>
       <h2 class="section-heading">Quiz Questions</h2>
       <input type="text" id="search-input" placeholder="Search questions..." />
+      <button type="button" id="search-button">Search</button>
       <div id="questions-list"></div>
     </section>
-    
+
     <section>
       <div class="button-container"> 
         <button type="button" id="sort-alpha">Sort Alphabetically</button> 
-        <button type="button" id="sort-random">Random Sort</button> </div>
-        <div id="questions-list"></div>
-      </section>
-    </div>
+        <button type="button" id="sort-random">Random Sort</button> 
+      </div>
+    </section>
+  </div>
 
-  
   <script src="./script.js"></script>
 </body>
 </html>
