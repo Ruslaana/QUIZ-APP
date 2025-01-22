@@ -1,18 +1,52 @@
 let quizQuestions = [];
 let questionId = 1;
 
+function validatePlayerName(name) {
+  const namePattern = /^(?=.*[a-zA-Z])[a-zA-Z0-9 ]{3,20}$/;
+  return namePattern.test(name);
+}
+
+function validateQuizForm() {
+  const question = document.getElementById('question').value;
+  const options = document.querySelectorAll('.option-input');
+  const optionsSet = new Set();
+
+  if (question.trim() === '') {
+    alert('Question cannot be empty.');
+    return false;
+  }
+
+  for (let i = 0; i < options.length; i++) {
+    if (options[i].value.trim() === '') {
+      alert('All options must be filled.');
+      return false;
+    }
+    optionsSet.add(options[i].value.trim());
+  }
+
+  if (optionsSet.size !== options.length) {
+    alert('All options must be unique.');
+    return false;
+  }
+
+  const correctOption = document.querySelector('input[name="correct"]:checked');
+  if (!correctOption) {
+    alert('Please select the correct answer.');
+    return false;
+  }
+
+  return true;
+}
+
 const form = document.getElementById('quiz-form');
 form.addEventListener('submit', e => {
   e.preventDefault();
 
+  if (!validateQuizForm()) return;
+
   const questionText = document.getElementById('question').value;
   const optionInputs = document.querySelectorAll('.option-input');
   const correctAnswer = document.querySelector('input[name="correct"]:checked');
-
-  if (!questionText || questionText.length > 140 || !correctAnswer) {
-    alert('Please enter a valid question and mark a correct answer!');
-    return;
-  }
 
   const options = [...optionInputs].map((input, index) => ({
     text: input.value,
@@ -38,7 +72,7 @@ async function fetchQuizQuestions() {
     const data = await response.json();
     if (Array.isArray(data)) {
       quizQuestions = data;
-      renderQuizQuestions(); 
+      renderQuizQuestions();
     } else {
       throw new Error('Invalid data format');
     }
@@ -159,13 +193,17 @@ shuffleButton.addEventListener('click', () => {
 document.getElementById('start-quiz').addEventListener('click', () => {
   const player1Name = document.getElementById('player1-name').value;
   const player2Name = document.getElementById('player2-name').value;
-  if (player1Name && player2Name) {
-    document.getElementById('player1-display').textContent = player1Name;
-    document.getElementById('player2-display').textContent = player2Name;
-    document.getElementById('players-container').style.display = 'block';
-  } else {
-    alert('Please enter both player names!');
+
+  if (!validatePlayerName(player1Name) || !validatePlayerName(player2Name)) {
+    alert(
+      'Player names must be 3-20 characters long, contain at least one letter, and only include letters, numbers, and spaces.',
+    );
+    return;
   }
+
+  document.getElementById('player1-display').textContent = player1Name;
+  document.getElementById('player2-display').textContent = player2Name;
+  document.getElementById('players-container').style.display = 'block';
 });
 
 function updateScore(player, action) {
