@@ -126,8 +126,11 @@ function renderQuizQuestions() {
   });
 }
 
+document.addEventListener('DOMContentLoaded', fetchQuizQuestions);
+
 const searchInput = document.getElementById('search-input');
-searchInput.addEventListener('input', () => {
+const searchButton = document.getElementById('search-button');
+searchButton.addEventListener('click', () => {
   const query = searchInput.value.toLowerCase();
   const filteredQuestions = quizQuestions.filter(quiz =>
     quiz.question.toLowerCase().includes(query),
@@ -230,5 +233,3 @@ document.getElementById('sort-random').addEventListener('click', () => {
     renderQuizQuestions();
   }
 });
-
-document.addEventListener('DOMContentLoaded', fetchQuizQuestions);
