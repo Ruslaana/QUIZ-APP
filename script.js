@@ -212,13 +212,33 @@ document.getElementById('start-quiz').addEventListener('click', () => {
 function updateScore(player, action) {
   const playerPoints = document.getElementById(`${player}-points`);
   let points = parseInt(playerPoints.value);
+
+  if (points >= 10) {
+    return;
+  }
+
   if (action === 'correct') {
     points += 1;
   } else if (action === 'wrong') {
     points = Math.max(0, points - 1);
   }
+
   playerPoints.value = points;
+
+  if (points === 10) {
+    launchConfetti();
+  }
 }
+
+
+function launchConfetti() {
+  confetti({
+    particleCount: 300,
+    spread: 200,
+    origin: { x: 0.5, y: 0.5 },
+  });
+}
+
 
 document.getElementById('sort-alpha').addEventListener('click', () => {
   if (Array.isArray(quizQuestions)) {
